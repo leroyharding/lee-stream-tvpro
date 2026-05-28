@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - LeeStreamTVPro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0b0f17;
+      color: #e2e8f0;
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    .container {
+      text-align: center;
+      padding: 2.5rem;
+      max-width: 450px;
+      width: 90%;
+      background: rgba(14, 20, 32, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.6s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .icon-wrapper {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: 50%;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+    .icon-wrapper svg {
+      width: 40px;
+      height: 40px;
+      color: #ef4444;
+      filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.6));
+    }
+    .app-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #ef4444;
+      font-weight: 900;
+      margin-bottom: 0.25rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin: 0 0 0.75rem;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+    }
+    p {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: #94a3b8;
+      margin: 0 0 2rem;
+    }
+    .btn-retry {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ef4444;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.4);
+      outline: none;
+    }
+    .btn-retry:hover {
+      background-color: #dc2626;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px 0 rgba(239, 68, 68, 0.5);
+    }
+    .btn-retry:active {
+      transform: translateY(0);
+    }
+    .tips {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #1e293b;
+      text-align: left;
+    }
+    .tips-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    .tips-list {
+      margin: 0;
+      padding-left: 1.25rem;
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    .tips-list li {
+      margin-bottom: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-3.536 4.978 4.978 0 011.414-3.536m0 0L5.636 5.636M12 12a1 1 0 100-2 1 1 0 000 2z" />
+      </svg>
+    </div>
+    <div class="app-title">LeeStreamTVPro</div>
+    <h1>No Connection Found</h1>
+    <p>We are unable to connect to the scraping network. Please verify your internet connection and try reloading the application.</p>
+    
+    <button class="btn-retry" onclick="window.location.reload()">
+      Retry Connection
+    </button>
+
+    <div class="tips">
+      <div class="tips-title">Troubleshooting:</div>
+      <ul class="tips-list">
+        <li>Ensure your Wi-Fi or mobile data is turned on.</li>
+        <li>Check if other websites are loading correctly.</li>
+        <li>If you have installed the app, it will load Watchlist and History automatically when started offline.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  
+  body {
+    background-color: #0b0f17;
+    color: #e2e8f0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Webkit Scrollbars for premium streaming feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Glassmorphism support */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-heavy {
+  background: rgba(11, 15, 23, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Pulse Glows */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.7);
+  }
+}
+
+.animate-glow {
+  animation: glow 3s infinite ease-in-out;
+}
+
+/* Aspect ratio helpers if needed */
+.aspect-poster {
+  aspect-ratio: 2 / 3;
+}
+
+.aspect-backdrop {
+  aspect-ratio: 16 / 9;
+}
+
+/* Premium Focus States for D-pad/Remote Navigation (supports programmatic focus in WebViews) */
+button, input, select, textarea, [tabindex="0"], a {
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out;
+}
+
+button:focus, input:focus, select:focus, textarea:focus, [tabindex="0"]:focus, a:focus,
+:focus-visible {
+  outline: none !important;
+  border-color: #ef4444 !important; /* red-500 */
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 0 20px rgba(239, 68, 68, 0.6) !important;
+  transform: scale(1.03) !important;
+  z-index: 10;
+}
+
+/* TV Mode Layout & Overscan Safe Boundaries */
+.tv-mode main {
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+  padding-bottom: 5% !important;
+}
+
+.tv-mode nav {
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+}
+
+/* Absolute Scrollbar Hiding in TV Mode */
+.tv-mode ::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.tv-mode * {
+  scrollbar-width: none !important;
+}
+
+/* Hide scrollbars specifically for carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Splash Screen Loading Bar Animation */
+@keyframes loader-bar {
+  0% {
+    left: -33%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-loader-bar {
+  animation: loader-bar 1.5s infinite linear;
+}
+
+/* Custom Bezier curves for premium cinematic feel */
+.ease-out-back {
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+
