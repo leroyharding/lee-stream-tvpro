@@ -4,6 +4,7 @@ import { ArrowLeft, Sparkles, ShieldAlert } from 'lucide-react';
 import { curatedCollections, fetchCollectionItems, HydraCollection } from '../services/collections';
 import { TMDbMedia } from '../types';
 import { MediaGrid } from './MediaGrid';
+import { getImageUrl } from '../services/tmdb';
 
 interface HydraCollectionsProps {
   onSelectMedia: (media: TMDbMedia) => void;
@@ -70,8 +71,18 @@ export const HydraCollections: React.FC<HydraCollectionsProps> = ({
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Collections</span>
             </button>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">{currentCollection.emoji}</span>
+            <div className="flex items-center gap-3">
+              {currentCollection.posterPath ? (
+                <div className="w-10 h-14 bg-zinc-950 rounded-lg flex items-center justify-center overflow-hidden border border-zinc-800 shadow-md shrink-0">
+                  <img
+                    src={getImageUrl(currentCollection.posterPath, 'w92')}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <span className="text-2xl">{currentCollection.emoji}</span>
+              )}
               <div className="flex flex-col">
                 <span className="text-[10px] tracking-widest text-slate-500 font-mono uppercase">
                   Hydra Collection Bundle
@@ -131,8 +142,19 @@ export const HydraCollections: React.FC<HydraCollectionsProps> = ({
             onClick={() => navigate(`/collections/${col.id}`)}
             className="relative bg-zinc-900/40 hover:bg-zinc-900/60 border border-zinc-800 hover:border-red-600/50 rounded-2xl p-5 flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] focus:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-red-600 cursor-pointer group"
           >
-            <div className="text-4xl filter drop-shadow group-hover:scale-110 transition-transform duration-300">
-              {col.emoji}
+            <div className="w-14 h-20 bg-zinc-950 rounded-xl flex items-center justify-center overflow-hidden border border-zinc-800 shadow-inner group-hover:border-red-600/30 transition-colors relative shrink-0">
+              {col.posterPath ? (
+                <img
+                  src={getImageUrl(col.posterPath, 'w185')}
+                  alt={col.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              ) : (
+                <div className="text-3xl filter drop-shadow group-hover:scale-110 transition-transform duration-300">
+                  {col.emoji}
+                </div>
+              )}
             </div>
             
             <div className="flex flex-col items-start text-left">
