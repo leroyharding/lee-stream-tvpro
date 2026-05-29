@@ -1540,7 +1540,7 @@ export default function App() {
             <div className="w-6 h-6 rounded-lg bg-red-600/20 flex items-center justify-center">
               <Radio className="w-3.5 h-3.5 text-red-500 animate-pulse" />
             </div>
-            <span className="font-bold text-slate-300">LeeStreamTVPro v1.0</span>
+            <span className="font-bold text-slate-300">LeeStreamTVPro v1.1</span>
             <span>— Premium Streaming & Scraping Engine</span>
           </div>
 

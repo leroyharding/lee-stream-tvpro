@@ -77,7 +77,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ isExiting }) => {
       {/* Footer Version Details */}
       <div className="absolute bottom-8 left-0 right-0 text-center select-none animate-in fade-in slide-in-from-bottom-4 delay-500 duration-500">
         <span className="text-[10px] text-slate-600 font-bold uppercase tracking-widest font-mono">
-          LeeStreamTVPro v1.0 • Stable Release
+          LeeStreamTVPro v1.1 • Stable Release
         </span>
       </div>
 
