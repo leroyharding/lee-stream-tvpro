@@ -301,59 +301,71 @@ export async function runScrapingEngine(
   queryType: 'movie' | 'series',
   queryId: string,
   settings: AppSettings,
-  onProgress: (provider: StreamProvider, status: 'querying' | 'success' | 'error', count: number) => void
+  onProgress: (provider: StreamProvider, status: 'querying' | 'success' | 'error', count: number, executionTimeMs?: number) => void
 ): Promise<StreamLink[]> {
   
   // Fire all four endpoints in parallel
   const tasks = [
     // 1. Torrentio
     (async () => {
+      const start = performance.now();
       onProgress('Torrentio', 'querying', 0);
       try {
         const res = await scrapeTorrentio(queryType, queryId, settings);
-        onProgress('Torrentio', 'success', res.length);
+        const duration = Math.round(performance.now() - start);
+        onProgress('Torrentio', 'success', res.length, duration);
         return res;
       } catch (err) {
-        onProgress('Torrentio', 'error', 0);
+        const duration = Math.round(performance.now() - start);
+        onProgress('Torrentio', 'error', 0, duration);
         return [];
       }
     })(),
 
     // 2. NoTorrent
     (async () => {
+      const start = performance.now();
       onProgress('NoTorrent', 'querying', 0);
       try {
         const res = await scrapeNoTorrent(queryType, queryId);
-        onProgress('NoTorrent', 'success', res.length);
+        const duration = Math.round(performance.now() - start);
+        onProgress('NoTorrent', 'success', res.length, duration);
         return res;
       } catch (err) {
-        onProgress('NoTorrent', 'error', 0);
+        const duration = Math.round(performance.now() - start);
+        onProgress('NoTorrent', 'error', 0, duration);
         return [];
       }
     })(),
 
     // 3. StreamViX
     (async () => {
+      const start = performance.now();
       onProgress('StreamViX', 'querying', 0);
       try {
         const res = await scrapeStreamViX(queryType, queryId, settings);
-        onProgress('StreamViX', 'success', res.length);
+        const duration = Math.round(performance.now() - start);
+        onProgress('StreamViX', 'success', res.length, duration);
         return res;
       } catch (err) {
-        onProgress('StreamViX', 'error', 0);
+        const duration = Math.round(performance.now() - start);
+        onProgress('StreamViX', 'error', 0, duration);
         return [];
       }
     })(),
 
     // 4. HdHub
     (async () => {
+      const start = performance.now();
       onProgress('HdHub', 'querying', 0);
       try {
         const res = await scrapeHdHub(queryType, queryId, settings);
-        onProgress('HdHub', 'success', res.length);
+        const duration = Math.round(performance.now() - start);
+        onProgress('HdHub', 'success', res.length, duration);
         return res;
       } catch (err) {
-        onProgress('HdHub', 'error', 0);
+        const duration = Math.round(performance.now() - start);
+        onProgress('HdHub', 'error', 0, duration);
         return [];
       }
     })()

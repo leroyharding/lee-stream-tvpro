@@ -44,13 +44,14 @@ export const ScraperConsole: React.FC<ScraperConsoleProps> = ({
   const countdownIntervalRef = useRef<any>(null);
   const [hasAutoPlayed, setHasAutoPlayed] = useState<boolean>(false);
 
-  const handleProgress = useCallback((provider: StreamProvider, status: 'querying' | 'success' | 'error', count: number) => {
+  const handleProgress = useCallback((provider: StreamProvider, status: 'querying' | 'success' | 'error', count: number, executionTimeMs?: number) => {
     setThreadStatuses(prev => prev.map(t => {
       if (t.provider === provider) {
         return {
           ...t,
-          status: status === 'querying' ? 'querying' : status === 'success' ? 'success' : 'error',
-          streamsFound: count
+          status,
+          streamsFound: count,
+          executionTimeMs: executionTimeMs !== undefined ? executionTimeMs : t.executionTimeMs
         };
       }
       return t;
@@ -322,11 +323,18 @@ export const ScraperConsole: React.FC<ScraperConsoleProps> = ({
                 </div>
 
                 {/* Status Subtitle */}
-                <div className="text-xs text-slate-400 font-medium">
-                  {isQuerying && <span className="text-amber-400 animate-pulse">Pinging Target...</span>}
-                  {isSuccess && <span className="text-emerald-400">Resolved {th.streamsFound} streams</span>}
-                  {isError && <span className="text-rose-400">Timeout / Filtered</span>}
-                  {th.status === 'idle' && <span>Awaiting thread execution</span>}
+                <div className="text-xs text-slate-400 font-medium flex flex-col gap-0.5">
+                  <div>
+                    {isQuerying && <span className="text-amber-400 animate-pulse">Pinging Target...</span>}
+                    {isSuccess && <span className="text-emerald-400">Resolved {th.streamsFound} streams</span>}
+                    {isError && <span className="text-rose-400">Timeout / Filtered</span>}
+                    {th.status === 'idle' && <span>Awaiting thread execution</span>}
+                  </div>
+                  {th.executionTimeMs !== undefined && (
+                    <div className="text-[10px] text-slate-500 font-mono mt-0.5">
+                      Response: {th.executionTimeMs}ms
+                    </div>
+                  )}
                 </div>
 
                 {/* Provider Config tag */}

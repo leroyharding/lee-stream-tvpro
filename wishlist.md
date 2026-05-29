@@ -70,7 +70,7 @@ A curated list of features and improvements that would elevate LeeStreamTVPro fr
 - [ ] **Stream Retry with Fallback** — If a stream fails in the HTML5 player, automatically try the next stream in the sorted list before showing the error screen.
 - [ ] **Lazy Loading Posters with Blur Placeholder** — Show a tiny blurred thumbnail (blurhash) while high-res posters load, eliminating layout shift.
 - [ ] **Caching TMDb Responses** — Cache trending/search results in sessionStorage for instant back-navigation without re-fetching.
-- [ ] **Scraper Execution Timing** — Display per-provider response times (ms) in the thread monitor cards for performance visibility.
+- [x] **Scraper Execution Timing** — Display per-provider response times (ms) in the thread monitor cards for performance visibility.
 
 ---
 
