@@ -30,11 +30,11 @@ export const ScraperConsole: React.FC<ScraperConsoleProps> = ({
   const [hasScraped, setHasScraped] = useState<boolean>(false);
 
   // Thread statuses
-  const [threadStatuses, setThreadStatuses] = useState<ScraperThreadStatus[]>([
-    { provider: 'Torrentio', status: 'idle', streamsFound: 0 },
-    { provider: 'NoTorrent', status: 'idle', streamsFound: 0 },
-    { provider: 'StreamViX', status: 'idle', streamsFound: 0 },
-    { provider: 'HdHub', status: 'idle', streamsFound: 0 },
+  const [threadStatuses, setThreadStatuses] = useState<ScraperThreadStatus[]>(() => [
+    { provider: 'Torrentio', status: settings.enableTorrentio ? 'idle' : 'disabled', streamsFound: 0 },
+    { provider: 'NoTorrent', status: settings.enableNoTorrent ? 'idle' : 'disabled', streamsFound: 0 },
+    { provider: 'StreamViX', status: settings.enableStreamVix ? 'idle' : 'disabled', streamsFound: 0 },
+    { provider: 'HdHub', status: settings.enableHdHub ? 'idle' : 'disabled', streamsFound: 0 },
   ]);
 
   // Autoplay automation tracking
@@ -44,7 +44,7 @@ export const ScraperConsole: React.FC<ScraperConsoleProps> = ({
   const countdownIntervalRef = useRef<any>(null);
   const [hasAutoPlayed, setHasAutoPlayed] = useState<boolean>(false);
 
-  const handleProgress = useCallback((provider: StreamProvider, status: 'querying' | 'success' | 'error', count: number, executionTimeMs?: number) => {
+  const handleProgress = useCallback((provider: StreamProvider, status: 'querying' | 'success' | 'error' | 'disabled', count: number, executionTimeMs?: number) => {
     setThreadStatuses(prev => prev.map(t => {
       if (t.provider === provider) {
         return {
@@ -72,10 +72,10 @@ export const ScraperConsole: React.FC<ScraperConsoleProps> = ({
     if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
 
     setThreadStatuses([
-      { provider: 'Torrentio', status: 'idle', streamsFound: 0 },
-      { provider: 'NoTorrent', status: 'idle', streamsFound: 0 },
-      { provider: 'StreamViX', status: 'idle', streamsFound: 0 },
-      { provider: 'HdHub', status: 'idle', streamsFound: 0 },
+      { provider: 'Torrentio', status: settings.enableTorrentio ? 'idle' : 'disabled', streamsFound: 0 },
+      { provider: 'NoTorrent', status: settings.enableNoTorrent ? 'idle' : 'disabled', streamsFound: 0 },
+      { provider: 'StreamViX', status: settings.enableStreamVix ? 'idle' : 'disabled', streamsFound: 0 },
+      { provider: 'HdHub', status: settings.enableHdHub ? 'idle' : 'disabled', streamsFound: 0 },
     ]);
 
     try {
@@ -294,6 +294,7 @@ export const ScraperConsole: React.FC<ScraperConsoleProps> = ({
             const isQuerying = th.status === 'querying';
             const isSuccess = th.status === 'success';
             const isError = th.status === 'error';
+            const isDisabled = th.status === 'disabled';
 
             return (
               <div
@@ -305,6 +306,8 @@ export const ScraperConsole: React.FC<ScraperConsoleProps> = ({
                     ? 'border-slate-800' 
                     : isError 
                     ? 'border-rose-950/80 bg-rose-950/10' 
+                    : isDisabled
+                    ? 'border-slate-900/40 opacity-45 bg-slate-950/20'
                     : 'border-slate-800/60 opacity-60'
                 }`}
               >
@@ -319,6 +322,7 @@ export const ScraperConsole: React.FC<ScraperConsoleProps> = ({
                   {isQuerying && <Loader2 className="w-4 h-4 text-amber-500 animate-spin" />}
                   {isSuccess && <CheckCircle2 className="w-4 h-4 text-emerald-500" />}
                   {isError && <XCircle className="w-4 h-4 text-rose-500" />}
+                  {isDisabled && <XCircle className="w-4 h-4 text-slate-500" />}
                   {th.status === 'idle' && <Radio className="w-4 h-4 text-slate-600" />}
                 </div>
 
@@ -328,6 +332,7 @@ export const ScraperConsole: React.FC<ScraperConsoleProps> = ({
                     {isQuerying && <span className="text-amber-400 animate-pulse">Pinging Target...</span>}
                     {isSuccess && <span className="text-emerald-400">Resolved {th.streamsFound} streams</span>}
                     {isError && <span className="text-rose-400">Timeout / Filtered</span>}
+                    {isDisabled && <span className="text-slate-500">Disabled in Settings</span>}
                     {th.status === 'idle' && <span>Awaiting thread execution</span>}
                   </div>
                   {th.executionTimeMs !== undefined && (

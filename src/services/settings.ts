@@ -14,7 +14,11 @@ export const defaultSettings: AppSettings = {
   autoSelect4K: false,
   autoPlayHdHubEnglish: true,
   playerMode: 'builtin',
-  targetIntentPackage: 'org.videolan.vlc'
+  targetIntentPackage: 'org.videolan.vlc',
+  enableTorrentio: true,
+  enableNoTorrent: true,
+  enableStreamVix: true,
+  enableHdHub: true
 };
 
 export function loadSettings(): AppSettings {

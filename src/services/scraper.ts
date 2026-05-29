@@ -301,13 +301,17 @@ export async function runScrapingEngine(
   queryType: 'movie' | 'series',
   queryId: string,
   settings: AppSettings,
-  onProgress: (provider: StreamProvider, status: 'querying' | 'success' | 'error', count: number, executionTimeMs?: number) => void
+  onProgress: (provider: StreamProvider, status: 'querying' | 'success' | 'error' | 'disabled', count: number, executionTimeMs?: number) => void
 ): Promise<StreamLink[]> {
   
   // Fire all four endpoints in parallel
   const tasks = [
     // 1. Torrentio
     (async () => {
+      if (!settings.enableTorrentio) {
+        onProgress('Torrentio', 'disabled', 0);
+        return [];
+      }
       const start = performance.now();
       onProgress('Torrentio', 'querying', 0);
       try {
@@ -324,6 +328,10 @@ export async function runScrapingEngine(
 
     // 2. NoTorrent
     (async () => {
+      if (!settings.enableNoTorrent) {
+        onProgress('NoTorrent', 'disabled', 0);
+        return [];
+      }
       const start = performance.now();
       onProgress('NoTorrent', 'querying', 0);
       try {
@@ -340,6 +348,10 @@ export async function runScrapingEngine(
 
     // 3. StreamViX
     (async () => {
+      if (!settings.enableStreamVix) {
+        onProgress('StreamViX', 'disabled', 0);
+        return [];
+      }
       const start = performance.now();
       onProgress('StreamViX', 'querying', 0);
       try {
@@ -356,6 +368,10 @@ export async function runScrapingEngine(
 
     // 4. HdHub
     (async () => {
+      if (!settings.enableHdHub) {
+        onProgress('HdHub', 'disabled', 0);
+        return [];
+      }
       const start = performance.now();
       onProgress('HdHub', 'querying', 0);
       try {

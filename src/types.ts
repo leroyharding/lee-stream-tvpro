@@ -98,12 +98,18 @@ export interface AppSettings {
   // Playback integration
   playerMode: 'builtin' | 'android_intent';
   targetIntentPackage: string; // 'org.videolan.vlc' | 'com.mxtech.videoplayer.ad' | etc.
+
+  // Scraper toggles
+  enableTorrentio: boolean;
+  enableNoTorrent: boolean;
+  enableStreamVix: boolean;
+  enableHdHub: boolean;
 }
 
 // Scraper Execution Status
 export interface ScraperThreadStatus {
   provider: StreamProvider;
-  status: 'idle' | 'querying' | 'success' | 'error';
+  status: 'idle' | 'querying' | 'success' | 'error' | 'disabled';
   streamsFound: number;
   errorMessage?: string;
   executionTimeMs?: number;

@@ -32,7 +32,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       ...localSettings,
       torrentioConfig: DEFAULT_TORRENTIO_CONFIG,
       streamVixConfig: DEFAULT_STREAMVIX_CONFIG,
-      hdHubConfig: DEFAULT_HDHUB_CONFIG
+      hdHubConfig: DEFAULT_HDHUB_CONFIG,
+      enableTorrentio: true,
+      enableNoTorrent: true,
+      enableStreamVix: true,
+      enableHdHub: true
     };
     setLocalSettings(updated);
     onSaveSettings(updated);
@@ -179,6 +183,101 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             <span className="text-[10px] text-slate-500 block mt-1">
               Applies URL sanitization (spaces to %20, brackets to %5B/%5D, hashes to %23) and injects browser User-Agent headers.
             </span>
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* Active Scraping Sources Toggles */}
+      <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-6">
+        
+        <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
+          <div className="w-10 h-10 rounded-xl bg-red-950 flex items-center justify-center border border-red-800">
+            <Sliders className="w-5 h-5 text-red-500" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-white tracking-tight">
+              Active Scraping Sources
+            </h2>
+            <p className="text-slate-400 text-xs">
+              Toggle which remote scrapers are queried during link search runs.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          {/* Torrentio */}
+          <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 flex items-start justify-between gap-3">
+            <div>
+              <label className="text-sm font-bold text-slate-200 block">
+                Torrentio Scraper
+              </label>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Queries P2P torrent cache indexer.
+              </p>
+            </div>
+            <input
+              type="checkbox"
+              checked={localSettings.enableTorrentio}
+              onChange={(e) => handleChange('enableTorrentio', e.target.checked)}
+              className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-red-605 focus:ring-red-500 mt-0.5 cursor-pointer"
+            />
+          </div>
+
+          {/* NoTorrent */}
+          <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 flex items-start justify-between gap-3">
+            <div>
+              <label className="text-sm font-bold text-slate-200 block">
+                NoTorrent Scraper
+              </label>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Queries direct HTTP/HLS direct-stream indexer.
+              </p>
+            </div>
+            <input
+              type="checkbox"
+              checked={localSettings.enableNoTorrent}
+              onChange={(e) => handleChange('enableNoTorrent', e.target.checked)}
+              className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-red-605 focus:ring-red-500 mt-0.5 cursor-pointer"
+            />
+          </div>
+
+          {/* StreamViX */}
+          <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 flex items-start justify-between gap-3">
+            <div>
+              <label className="text-sm font-bold text-slate-200 block">
+                StreamViX Scraper
+              </label>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Queries fast StreamViX direct proxy indexer.
+              </p>
+            </div>
+            <input
+              type="checkbox"
+              checked={localSettings.enableStreamVix}
+              onChange={(e) => handleChange('enableStreamVix', e.target.checked)}
+              className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-red-605 focus:ring-red-500 mt-0.5 cursor-pointer"
+            />
+          </div>
+
+          {/* HdHub */}
+          <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 flex items-start justify-between gap-3">
+            <div>
+              <label className="text-sm font-bold text-slate-200 block">
+                HdHub Scraper
+              </label>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Queries Base64-encoded HdHub direct indexer.
+              </p>
+            </div>
+            <input
+              type="checkbox"
+              checked={localSettings.enableHdHub}
+              onChange={(e) => handleChange('enableHdHub', e.target.checked)}
+              className="w-5 h-5 rounded border-slate-700 bg-slate-900 text-red-605 focus:ring-red-500 mt-0.5 cursor-pointer"
+            />
           </div>
 
         </div>
