@@ -80,7 +80,7 @@ class MainActivity : Activity() {
 
     private fun showExitDialog() {
         android.app.AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
-            .setTitle("Exit LeeStreamTV")
+            .setTitle("Exit LeeStreamTVPro")
             .setMessage("Do you want to exit the app?")
             .setPositiveButton("Exit") { _, _ ->
                 finish()

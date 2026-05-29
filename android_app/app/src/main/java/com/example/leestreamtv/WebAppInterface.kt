@@ -123,10 +123,10 @@ class WebAppInterface(private val mContext: Context) {
 
         try {
             val request = android.app.DownloadManager.Request(Uri.parse(apkUrl)).apply {
-                setTitle("LeeStreamTV Update")
+                setTitle("LeeStreamTVPro Update")
                 setDescription("Downloading the latest release...")
                 setNotificationVisibility(android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                setDestinationInExternalFilesDir(mContext, android.os.Environment.DIRECTORY_DOWNLOADS, "LeeStreamTV_Update.apk")
+                setDestinationInExternalFilesDir(mContext, android.os.Environment.DIRECTORY_DOWNLOADS, "LeeStreamTVPro_Update.apk")
             }
 
             val manager = mContext.getSystemService(Context.DOWNLOAD_SERVICE) as android.app.DownloadManager
