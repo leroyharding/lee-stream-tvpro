@@ -13,6 +13,8 @@ import { PersonDetailModal } from './components/PersonDetailModal';
 import { SplashScreen } from './components/SplashScreen';
 import { PosterContextMenuModal } from './components/PosterContextMenuModal';
 import { HydraCollections } from './components/HydraCollections';
+import { LiveTV } from './components/LiveTV';
+import { IPTVChannel } from './services/iptv';
 
 // Types & Services
 import { AppSettings, TMDbMedia, StreamLink, ContinueWatchingItem, WatchHistoryItem } from './types';
@@ -764,6 +766,33 @@ export default function App() {
     }
   };
 
+  const handleLaunchIPTVChannel = (channel: IPTVChannel) => {
+    const liveStream: StreamLink = {
+      id: channel.id || `iptv-${channel.name}`,
+      url: channel.url,
+      title: channel.name,
+      resolution: 'Live',
+      provider: 'NoTorrent',
+      category: 'free',
+      isPremium: false,
+      categoryWeight: 0,
+      resolutionWeight: 0,
+      totalWeight: 0,
+      originalData: channel
+    };
+
+    if (settings.playerMode === 'android_intent') {
+      launchAndroidIntent({
+        url: liveStream.url,
+        title: liveStream.title,
+        packageName: settings.targetIntentPackage
+      });
+    } else {
+      setActivePlayerContext(null);
+      setActiveStream(liveStream);
+    }
+  };
+
   // Top 5 trending items for the main rotating hero cover (mix of movies and shows)
   const heroItems = [
     ...trendingMovies.slice(0, 3),
@@ -1258,6 +1287,13 @@ export default function App() {
               settings={settings}
               onLaunchStream={handleLaunchStream}
               onBack={() => setCurrentTab('home')}
+            />
+          } />
+
+          <Route path="/livetv" element={
+            <LiveTV
+              onLaunchStream={handleLaunchIPTVChannel}
+              settings={settings}
             />
           } />
 

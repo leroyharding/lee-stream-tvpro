@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Film, Tv, Radio, Settings, Menu, X, Heart, Download, Compass, Library } from 'lucide-react';
+import { Search, Film, Tv, Tv2, Radio, Settings, Menu, X, Heart, Download, Compass, Library } from 'lucide-react';
 import { AppSettings } from '../types';
 
 interface NavbarProps {
@@ -39,6 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'shows', label: 'TV Shows', icon: Tv },
     { id: 'genres', label: 'Genres', icon: Compass },
     { id: 'collections', label: 'Collections', icon: Library },
+    { id: 'livetv', label: 'Live TV', icon: Tv2 },
     { id: 'watchlist', label: 'My List', icon: Heart },
     { id: 'scraper', label: 'Scraper Console', icon: Radio },
     { id: 'settings', label: 'Settings', icon: Settings },
